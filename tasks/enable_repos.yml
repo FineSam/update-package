@@ -1,0 +1,12 @@
+---
+- name: Enable or disable CENTOS repos(CentOS only)
+  ini_file:
+    dest: /etc/yum.repos.d/CentOS-Base.repo
+    section: "{{item}}"
+    option: enabled
+    value: "{{enable_flag}}"
+  with_items: "{{repo_list}}"
+  when:
+     - (ansible_distribution == "CentOS")
+     - ansible_distribution_major_version == "7"
+

@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: set file name and enable repos flag
+      set_fact: 
+        csv_file_name: "{{playbook_dir}}/results/results-{{ansible_date_time.epoch}}.csv"
+        enable_flag: "1"
+        when: "before"
+
+    - name: Creating an empty file
+      copy:
+        dest: "{{csv_file_name}}"
+        content: "timing,hostname,package,version"
+      delegate_to: 127.0.0.1
+
+    - name: Check package version and write to csv
+      import_tasks: tasks/check_pck.yml
+     
+    - name: Enable repositories
+      import_tasks: tasks/enable_repos.yml
+
+    - name: update packages
+      yum:
+        name: "{{package_list}}"
+        state: latest
+
+    - name: set variable to disable repos and csv file name
+      set_fact:
+        enable_flag: "0"
+        when: "after"
+
+    - name: Disable repositories
+      import_tasks: tasks/enable_repos.yml
+
+    - name: Check package versions after operation
+      import_tasks: tasks/check_pck.yml

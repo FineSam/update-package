@@ -1,0 +1,12 @@
+---
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+
+- name: Check package version and write to csv
+  lineinfile:
+    path: "{{csv_file_name}}"
+    line: "{{when}},{{ansible_hostname}},{{item}},{{ansible_facts.packages[item][0].version }}-{{ansible_facts.packages[item][0].release}}"
+  with_items:
+    - "{{package_list}}"
+  delegate_to: 127.0.0.1

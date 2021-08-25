@@ -1,0 +1,14 @@
+---
+package_list:
+  - yum
+  - ipset
+  - tar
+  - MariaDB-server
+  - sed
+  - google-cloud-sdk
+  - sudo
+repo_list:
+  - base
+  - updates
+  - extras
+  - centosplus

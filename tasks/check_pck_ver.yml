@@ -1,0 +1,6 @@
+---
+- name: Check package version
+  debug:
+    msg: "{{item}} is version {{ansible_facts.packages[item][0].version }}-{{ansible_facts.packages[item][0].release}}"
+  loop: "{{ package_list }}"
+  when: item in packages
