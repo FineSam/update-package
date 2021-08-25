@@ -1,3 +1,4 @@
 # update-package
 
-## ansible-playbook -i hosts/hosts -b update-pck.yml
+### Usage
+ansible-playbook -i hosts/hosts -b update-pck.yml
