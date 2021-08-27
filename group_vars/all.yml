@@ -1,4 +1,5 @@
 ---
+update: false
 package_list:
   - yum
   - ipset

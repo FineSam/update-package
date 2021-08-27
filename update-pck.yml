@@ -25,6 +25,7 @@
       yum:
         name: "{{package_list}}"
         state: latest
+      when: update == true
 
     - name: set variable to disable repos and csv file name
       set_fact:
